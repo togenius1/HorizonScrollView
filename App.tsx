@@ -46,7 +46,7 @@ const App = (props: Props) => {
             What can we help you find, Home
           </Text>
 
-          <View style={{height: 200, marginTop: 20}}>
+          <View style={{height: 350, marginTop: 20}}>
             <ScrollView
               horizontal={true}
               pagingEnabled={true}
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
   card: {
     flex: 1,
     marginVertical: 10,
-    width: 450,
+    width: windowWidth,
     overflow: 'hidden',
     alignSelf: 'center',
   },
