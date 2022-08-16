@@ -25,6 +25,8 @@ const windowHeight = Dimensions.get('window').height;
 
 const App = (props: Props) => {
   const scrollX = useRef(new Animated.Value(0)).current;
+  console.log('windowWidth: ', windowWidth);
+  console.log('scrollX: ', scrollX);
 
   return (
     <View>
@@ -56,7 +58,11 @@ const App = (props: Props) => {
               {images.map((image, imageIndex) => {
                 return (
                   <Animated.View>
-                    <Image source={image.img} style={[styles.card]} />
+                    <Image
+                      key={image.title}
+                      source={image.img}
+                      style={[styles.card]}
+                    />
                   </Animated.View>
                 );
               })}
@@ -66,7 +72,7 @@ const App = (props: Props) => {
           {/* Dots */}
           <View style={styles.indicatorContainer}>
             {images.map((image, imageIndex) => {
-              const width: number = scrollX.interpolate({
+              const width = scrollX.interpolate({
                 inputRange: [
                   windowWidth * (imageIndex - 1),
                   windowWidth * imageIndex,
@@ -75,14 +81,16 @@ const App = (props: Props) => {
                 outputRange: [8, 16, 8],
                 extrapolate: 'clamp',
               });
-              console.log(width);
+              console.log('interpolate:', `${imageIndex}x`, width);
+
               return (
                 <Animated.View
+                  key={image.title}
                   style={[
                     styles.normalDots,
                     {
                       width,
-                      // height: width,
+                      borderRadius: width,
                       backgroundColor: image.color,
                     },
                   ]}
@@ -102,7 +110,7 @@ const styles = StyleSheet.create({
   card: {
     flex: 1,
     marginVertical: 10,
-    width: 350,
+    width: 450,
     overflow: 'hidden',
     alignSelf: 'center',
   },
